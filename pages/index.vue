@@ -1,36 +1,37 @@
 <template>
-  <div id="test">
-    <h1>{{grandetexto}}</h1>
-    <input type="text" name="" id="" v-model="text">
-
-    <input type="number" v-model="n1">
-    <input type="number" v-model="n2">
-    <Botao :text="text" v-model="data"><small>aqui</small></Botao>
-    {{ data }}
+  <div class="flex flex-col items-center">
+    <input type="text" v-model="url" class="border-1 border-black bg-gray-400">
+    <button @click="create">Criar</button>
+    <div>{{ resposta }}</div>
+    <ul>
+      <li v-for="link in data">
+        /{{ link.content }}
+      </li>
+    </ul>
   </div>
 </template>
 
 <script setup lang="ts">
-const text = ref<string>("Hello World 1")
-const data = ref()
-const grandetexto = computed(()=>{
-  return text.value.toUpperCase()
+const url = ref<string>("")
+const resposta = ref<any>()
+const {data, execute} = await useFetch('/api/link',{
+  method:'get'
 })
+await execute()
 
-const n1 = ref<number>(0)
-const n2 = ref<number>(0)
-
-watch([n1,n2],(now,before)=>{
-  if(n1.value+n2.value>50){
-    text.value = "A balaça não aguenta, reduza o peso"
-  }else{
-    text.value = "ok"
-  }
-})
+async function create() {
+  const data = await $fetch('/api/link', {
+    method: 'POST',
+    body: {
+      link: url.value
+    }
+  })
+  resposta.value = data
+}
 </script>
 
 <style>
-#test{
+#test {
   display: flex;
   flex-direction: column;
 }
