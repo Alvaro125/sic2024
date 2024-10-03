@@ -10,6 +10,9 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@nuxtjs/tailwindcss": "^6.12.1",
+    "@types/mongoose": "^5.11.97",
+    "mongoose": "^8.7.0",
     "nuxt": "^3.13.0",
     "vue": "latest",
     "vue-router": "latest"

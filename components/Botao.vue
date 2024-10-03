@@ -1,5 +1,5 @@
 <template>
-    <button @click="click" ><h1>{{ props.text }}</h1>
+    <button @click="click" class="bg-red-500"><h1>{{ props.text }}</h1>
     <slot/> </button>
 </template>
 <script setup lang="ts">
